@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
@@ -25,6 +25,10 @@ spec:
             memory: 100Mi
         env:
         - name: GET_HOSTS_FROM
-          value: dns
+          value: env
+        - name: REDIS_MASTER_SERVICE_HOST
+          value: {{ .Release.Name }}-redis-master
+        - name: REDIS_SLAVE_SERVICE_HOST
+          value: {{ .Release.Name }}-redis-slave
         ports:
         - containerPort: 80
