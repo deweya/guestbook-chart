@@ -1,5 +1,4 @@
 redis:
-  fullnameOverride: redis
   ## Disables Redis authentication
   ## Required because the guestbook app does not support auth
   usePassword: false
