@@ -1,4 +1,4 @@
-redis:
-  ## Disables Redis authentication
-  ## Required because the guestbook app does not support auth
-  usePassword: false
+## guestbookReplicas specifies the number of Guestbook pods to deploy
+guestbookReplicas: 3
+## redisSlaveReplicas specifies the number of Redis Slave pods to deploy
+redisSlaveReplicas: 2

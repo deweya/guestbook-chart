@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-redis-slave
@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-redis-slave
-  replicas: 2
+  replicas: {{ .Values.redisSlaveReplicas }}
   template:
     metadata:
       labels:
@@ -19,6 +19,9 @@ spec:
         image: gcr.io/google_samples/gb-redisslave:v3
         resources:
           requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
             cpu: 100m
             memory: 100Mi
         env:
