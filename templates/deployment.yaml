@@ -1,3 +1,10 @@
+{{- /*
+Below if statement ensures that Redis authentication is disabled
+because the Guestbook application currently does not support it.
+*/ -}}
+{{- if .Values.redis.usePassword }}
+  {{- fail "value 'redis.usePassword' must equal 'false'"}}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,12 +25,7 @@ spec:
       - name: php-redis
         image: gcr.io/google-samples/gb-frontend:v4
         resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
-          limits:
-            cpu: 100m
-            memory: 100Mi
+{{ .Values.resources | toYaml | indent 10 }}
         env:
         - name: GET_HOSTS_FROM
           value: env

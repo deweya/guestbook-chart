@@ -1,5 +1,15 @@
+## guestbookReplicas specifies the number of Guestbook pods to deploy
 guestbookReplicas: 3
+## resources specifies the resource requests and limits of a Guestbook pod
+resources:
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limits:
+    cpu: 100m
+    memory: 100Mi
+
 redis:
-  ## Disables Redis authentication
-  ## Required because the guestbook app does not support auth
+  ## usePassword is used to enable or disable Redis authentication
+  ## usePassword must be set to false because the Guestbook app does not support auth
   usePassword: false
