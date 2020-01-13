@@ -1,20 +1,18 @@
-apiVersion: apps/v1
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Release.Name }}
   labels:
-    app: guestbook
+{{ include "guestbook.common-labels" . | indent 4 }}
 spec:
   selector:
     matchLabels:
-      app: guestbook
-      tier: frontend
-  replicas: 1
+      app: {{ .Release.Name }}
+  replicas: 3
   template:
     metadata:
       labels:
-        app: guestbook
-        tier: frontend
+        app: {{ .Release.Name }}
     spec:
       containers:
       - name: php-redis
