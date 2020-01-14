@@ -10,6 +10,9 @@ resources:
     memory: 100Mi
 
 redis:
-  ## usePassword is used to enable or disable Redis authentication
-  ## usePassword must be set to false because the Guestbook app does not support auth
+  ## set to false because the Guestbook app does not support auth
   usePassword: false
+  ## disable aof persistence
+  configmap: |-
+    appendonly no
+    save ""
