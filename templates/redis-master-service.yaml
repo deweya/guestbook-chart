@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-redis-master
   labels:
 {{ include "guestbook.common-labels" . | indent 4 }}
+    "app.kubernetes.io/component": backend
 spec:
   ports:
   - port: 6379

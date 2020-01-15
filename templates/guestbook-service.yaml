@@ -4,9 +4,12 @@ metadata:
   name: {{ .Release.Name }}
   labels:
 {{ include "guestbook.common-labels" . | indent 4 }}
+    "app.kubernetes.io/component": frontend
 spec:
-  type: NodePort 
+  type: {{ .Values.serviceType }}
   ports:
-  - port: 80
+{{- range .Values.servicePorts }}
+  - port: {{ . }}
+{{- end }}
   selector:
     app: {{ .Release.Name }}
