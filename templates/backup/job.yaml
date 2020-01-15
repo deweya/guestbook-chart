@@ -1,3 +1,4 @@
+{{- if and .Values.enableBackups .Values.redis.master.persistence.enabled }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -29,4 +30,5 @@ spec:
         - name: backup
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-backup-{{ sub .Release.Revision 1 }}
+{{- end }}
             

@@ -5,8 +5,15 @@ metadata:
   labels:
 {{ include "guestbook.common-labels" . | indent 4 }}
 spec:
-  type: NodePort 
+{{- $serviceTypes := list "ClusterIP" "NodePort" "LoadBalancer" }}
+{{- if has .Values.serviceType $serviceTypes }}
+  type: {{ .Values.serviceType }}
+{{- else }}
+  {{- fail "value 'serviceType' must be either 'ClusterIP', 'NodePort', or 'LoadBalancer'" }}
+{{- end }}
   ports:
-  - port: 80
+{{- range .Values.servicePorts }}
+  - port: {{ . }}
+{{- end }}
   selector:
     app: {{ .Release.Name }}
